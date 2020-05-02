@@ -19,4 +19,6 @@ libraryDependencies += "com.squareup.okhttp3" % "okhttp" % "4.6.0"
 
 libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
 
+libraryDependencies += "com.typesafe" % "config" % "1.4.0"
+
 libraryDependencies += "org.json4s" %% "json4s-native" % "3.7.0-M2"
