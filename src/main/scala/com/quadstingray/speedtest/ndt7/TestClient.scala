@@ -67,7 +67,7 @@ case class TestClient(server: Server) extends HttpClient {
       throw new Exception("Test is already running")
     }
 
-    val uri: URI = new URI("wss://" + server.hostname + "/ndt/v7/download")
+    val uri: URI = new URI("wss://" + server.fqdn + "/ndt/v7/download")
     val client: OkHttpClient = httpClient()
     val request: Request = buildRequest(uri)
 

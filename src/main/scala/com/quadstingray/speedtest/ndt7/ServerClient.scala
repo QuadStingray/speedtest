@@ -7,9 +7,9 @@ import org.json4s.DefaultFormats
 import org.json4s.native.Serialization.read
 
 case class ServerClient() extends HttpClient {
-  implicit val formats: DefaultFormats.type = DefaultFormats
+  implicit private val formats: DefaultFormats.type = DefaultFormats
 
-  def getServerById(site: String): Option[Server] = {
+  def serverBySite(site: String): Option[Server] = {
     allServer.find(_.site == site)
   }
 
