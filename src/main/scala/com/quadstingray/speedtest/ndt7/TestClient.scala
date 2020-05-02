@@ -4,7 +4,7 @@ import java.net.URI
 import java.util.concurrent.TimeUnit
 
 import com.quadstingray.speedtest.ndt7.lib.api.Measurement
-import com.quadstingray.speedtest.ndt7.lib.{Bandwidth, ConnectionInfo, MeasurementResult, Settings}
+import com.quadstingray.speedtest.ndt7.lib.{Bandwidth, ConnectionInfo, MeasurementResult, Server}
 import com.quadstingray.speedtest.ndt7.listener.{DownloadSocketListener, UploadSocketListener}
 import okhttp3._
 import okio.ByteString
@@ -12,7 +12,7 @@ import okio.ByteString
 import scala.concurrent.duration._
 import scala.util.Random
 
-case class TestClient(settings: Settings) extends HttpClient {
+case class TestClient(server: Server) extends HttpClient {
   private var testRunning: Boolean = false
   private var firstRequestTime: Long = 0
   private var lastRequestTime: Long = 0
@@ -25,7 +25,7 @@ case class TestClient(settings: Settings) extends HttpClient {
       throw new Exception("Test is already running")
     }
 
-    val uri: URI = new URI("wss://" + settings.hostname + "/ndt/v7/upload")
+    val uri: URI = new URI("wss://" + server.fqdn + "/ndt/v7/upload")
     val client: OkHttpClient = httpClient()
     val request: Request = buildRequest(uri)
 
@@ -67,7 +67,7 @@ case class TestClient(settings: Settings) extends HttpClient {
       throw new Exception("Test is already running")
     }
 
-    val uri: URI = new URI("wss://" + settings.hostname + "/ndt/v7/download")
+    val uri: URI = new URI("wss://" + server.hostname + "/ndt/v7/download")
     val client: OkHttpClient = httpClient()
     val request: Request = buildRequest(uri)
 
