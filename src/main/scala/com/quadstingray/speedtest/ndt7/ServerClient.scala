@@ -8,8 +8,8 @@ import com.github.plokhotnyuk.jsoniter_scala.macros._
 import com.github.plokhotnyuk.jsoniter_scala.core._
 
 case class ServerClient() extends HttpClient {
-  implicit val codec: JsonValueCodec[Server] = JsonCodecMaker.make[Server]
-  implicit val codec2: JsonValueCodec[List[Server]] = JsonCodecMaker.make[List[Server]]
+  implicit private val codec: JsonValueCodec[Server] = JsonCodecMaker.make[Server]
+  implicit private val codec2: JsonValueCodec[List[Server]] = JsonCodecMaker.make[List[Server]]
 
   def serverBySite(site: String): Option[Server] = {
     allServer.find(_.site == site)

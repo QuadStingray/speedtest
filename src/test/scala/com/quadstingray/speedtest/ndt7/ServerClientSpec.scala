@@ -36,7 +36,7 @@ class ServerClientSpec extends Specification {
       testServer.country must beEqualTo(serverToTest.country)
     }
 
-    "find no server by site fra05" >> {
+    "find no server by site 'unknownServer'" >> {
       val client = ServerClient()
       val testServer = client.serverBySite("unknownServer")
       testServer must beNone

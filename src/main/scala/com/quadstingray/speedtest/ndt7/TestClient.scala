@@ -3,6 +3,7 @@ package com.quadstingray.speedtest.ndt7
 import java.net.URI
 import java.util.concurrent.TimeUnit
 
+import com.quadstingray.speedtest.ndt7.lib.MeasurementResult._
 import com.quadstingray.speedtest.ndt7.lib.api.Measurement
 import com.quadstingray.speedtest.ndt7.lib.{Bandwidth, ConnectionInfo, MeasurementResult, Server}
 import com.quadstingray.speedtest.ndt7.listener.{DownloadSocketListener, UploadSocketListener}
@@ -17,9 +18,9 @@ case class TestClient(server: Server) extends HttpClient {
   private var firstRequestTime: Long = 0
   private var lastRequestTime: Long = 0
   private var lastMeasurementResult: MeasurementResult = _
-  protected var measurementCallBack: (MeasurementResult) => Unit = defaultMeasurementCallback
+  protected var measurementCallBack: (MeasurementResult) => Unit = SpeedTest.defaultMeasurementCallback
 
-  def runUpload(intermediateMeasurementCallBack: (MeasurementResult) => Unit = defaultMeasurementCallback): MeasurementResult = {
+  def runUpload(intermediateMeasurementCallBack: (MeasurementResult) => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
     measurementCallBack = intermediateMeasurementCallBack
     if (testRunning) {
       throw new Exception("Test is already running")
@@ -29,7 +30,7 @@ case class TestClient(server: Server) extends HttpClient {
     val client: OkHttpClient = httpClient()
     val request: Request = buildRequest(uri)
 
-    var lastSocketMessage: Measurement = Measurement(None, None, None, None, null, null)
+    var lastSocketMessage: Measurement = Measurement(None, None, None)
 
     def updateMeasurement(ms: Measurement): Unit = lastSocketMessage = ms
 
@@ -49,7 +50,7 @@ case class TestClient(server: Server) extends HttpClient {
       socket.send(message)
       while (socket.queueSize() > 0) {}
       lastRequestTime = System.nanoTime()
-      lastMeasurementResult = intermediateCallBack(count, lastSocketMessage)
+      lastMeasurementResult = intermediateCallBack(TestKindUpload, count, lastSocketMessage)
     }
     socket.close(1000, null)
 
@@ -61,7 +62,7 @@ case class TestClient(server: Server) extends HttpClient {
     lastMeasurementResult
   }
 
-  def runDownload(intermediateMeasurementCallBack: (MeasurementResult) => Unit = defaultMeasurementCallback): MeasurementResult = {
+  def runDownload(intermediateMeasurementCallBack: (MeasurementResult) => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
     measurementCallBack = intermediateMeasurementCallBack
     if (testRunning) {
       throw new Exception("Test is already running")
@@ -83,39 +84,28 @@ case class TestClient(server: Server) extends HttpClient {
     lastMeasurementResult
   }
 
-  protected def generateMeasurementResult(count: Double, lastMeasurement: Measurement): MeasurementResult = {
+  protected def generateMeasurementResult(testKind: String, count: Double, lastMeasurement: Measurement): MeasurementResult = {
     val bandwidth = count / ((lastRequestTime - firstRequestTime).doubleValue() / 1.second.toNanos)
     val info = if (lastMeasurement != null && lastMeasurement.ConnectionInfo.isDefined)
       ConnectionInfo(lastMeasurement.ConnectionInfo.get.Client, lastMeasurement.ConnectionInfo.get.Server)
     else
       ConnectionInfo("not_set", "not_set")
-    val result = MeasurementResult(Bandwidth(bandwidth), info, count.toLong)
+    val result = MeasurementResult(testKind, Bandwidth(bandwidth), info, count.toLong)
     result
   }
 
-  protected def intermediateCallBack(count: Double, lastMeasurement: Measurement): MeasurementResult = {
+  protected def intermediateCallBack(testKind: String, count: Double, lastMeasurement: Measurement): MeasurementResult = {
     lastRequestTime = System.nanoTime()
-    val result = generateMeasurementResult(count, lastMeasurement)
+    val result = generateMeasurementResult(testKind, count, lastMeasurement)
     measurementCallBack(result)
     result
   }
 
   protected def finalDownloadCallBack(count: Double, lastMeasurement: Measurement): MeasurementResult = {
     lastRequestTime = System.nanoTime()
-    val result = generateMeasurementResult(count, lastMeasurement)
+    val result = generateMeasurementResult(TestKindDownload, count, lastMeasurement)
     lastMeasurementResult = result
     result
-  }
-
-  protected def finalUploadCallBack(count: Double, lastMeasurement: Measurement): MeasurementResult = {
-    lastRequestTime = System.nanoTime()
-    val result = generateMeasurementResult(count, lastMeasurement)
-    lastMeasurementResult = result
-    result
-  }
-
-  private def defaultMeasurementCallback(measurement: MeasurementResult): Unit = {
-    logger.info("intermediate measurement: %s".format(measurement))
   }
 
 }
