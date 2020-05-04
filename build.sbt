@@ -6,6 +6,8 @@ version := "0.1.0"
 
 scalaVersion := "2.13.2"
 
+scalacOptions ++= Seq("-Xmacro-settings:print-codecs")
+
 homepage := Some(url("https://quadstingray.github.io/speed4s/"))
 
 scmInfo := Some(ScmInfo(url("https://github.com/QuadStingray/speed4s"), "https://github.com/QuadStingray/speed4s.git"))
@@ -21,4 +23,7 @@ libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
 
 libraryDependencies += "com.typesafe" % "config" % "1.4.0"
 
-libraryDependencies += "org.json4s" %% "json4s-native" % "3.7.0-M2"
+libraryDependencies ++= Seq(
+  "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-core"   % "2.2.0",
+  "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-macros" % "2.2.0"
+)

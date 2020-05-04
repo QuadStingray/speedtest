@@ -4,14 +4,15 @@ import com.quadstingray.speedtest.ndt7.lib.api.Measurement
 import com.typesafe.scalalogging.LazyLogging
 import okhttp3.{Response, WebSocket, WebSocketListener}
 import okio.ByteString
-import org.json4s.DefaultFormats
-import org.json4s.native.Serialization.read
+import com.github.plokhotnyuk.jsoniter_scala.macros._
+import com.github.plokhotnyuk.jsoniter_scala.core._
+import com.quadstingray.speedtest.ndt7.lib.Server
 
 private [ndt7] case class UploadSocketListener(messageCallBack: (Measurement) => Unit) extends WebSocketListener with LazyLogging {
   private var lastMeasurement: Measurement = _
   private var connected: Boolean = false
 
-  implicit val formats: DefaultFormats.type = DefaultFormats
+  implicit val codec: JsonValueCodec[Measurement] = JsonCodecMaker.make[Measurement]
 
   def isConnected: Boolean = connected
 
@@ -23,7 +24,7 @@ private [ndt7] case class UploadSocketListener(messageCallBack: (Measurement) =>
   override def onMessage(ws: WebSocket, text: String) {
     logger.debug("text message received")
     try {
-      val measurement: Measurement = read[Measurement](text)
+      val measurement: Measurement = readFromString[Measurement](text)
       lastMeasurement = measurement
       messageCallBack(measurement)
     } catch {

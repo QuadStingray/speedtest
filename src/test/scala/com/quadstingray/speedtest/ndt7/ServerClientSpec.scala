@@ -31,7 +31,7 @@ class ServerClientSpec extends Specification {
       val testServer = client.serverBySite("fra05").get
       val serverToTest = Server("fra05", "ndt-iupui-mlab1-fra05.measurement-lab.org", "Frankfurt", "DE", List("193.142.125.24", "2a01:3e0:ff20:401::24"))
       testServer.site must beEqualTo(serverToTest.site)
-      testServer.fqdn must beEqualTo(serverToTest.fqdn)
+      testServer.fqdn.matches("ndt.iupui.(.*?).fra05.measurement-lab.org") must beTrue
       testServer.city must beEqualTo(serverToTest.city)
       testServer.country must beEqualTo(serverToTest.country)
     }
