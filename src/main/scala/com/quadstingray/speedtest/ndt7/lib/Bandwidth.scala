@@ -1,6 +1,11 @@
 package com.quadstingray.speedtest.ndt7.lib
 
+import com.github.plokhotnyuk.jsoniter_scala.macros._
+import com.github.plokhotnyuk.jsoniter_scala.core._
+
 case class Bandwidth(bytePerSeconds: Double) {
+
+  implicit val codec: JsonValueCodec[Bandwidth] = JsonCodecMaker.make[Bandwidth]
 
   def bitPerSecond: Double = {
     bytePerSeconds.toDouble * 8
@@ -28,6 +33,14 @@ case class Bandwidth(bytePerSeconds: Double) {
 
   def gigaBitPerSecond: Double = {
     bytePerSeconds.toDouble / 125000000
+  }
+
+  override def toString: String = {
+    "Bandwidth : %s".format(megaBitPerSecond)
+  }
+
+  def toJson: String = {
+    writeToString(this)
   }
 
 }

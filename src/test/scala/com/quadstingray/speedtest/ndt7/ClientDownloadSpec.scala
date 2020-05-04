@@ -1,11 +1,12 @@
 package com.quadstingray.speedtest.ndt7
 
 import com.quadstingray.speedtest.ndt7.lib.{MeasurementResult, Server}
+import com.typesafe.scalalogging.LazyLogging
 import org.specs2.mutable.Specification
 
 import scala.concurrent.ExecutionContext
 
-class ClientDownloadSpec extends Specification {
+class ClientDownloadSpec extends Specification with LazyLogging {
   sequential
 
   val serverForTest: Server = ServerClient().nextServer
@@ -25,6 +26,7 @@ class ClientDownloadSpec extends Specification {
       def callBack(result : MeasurementResult): Unit = {
         count += 1
         bandwidthSum += result.bandwidth.bytePerSeconds
+        logger.trace(result.bandwidth.toString)
       }
 
       val client = TestClient(serverForTest)
