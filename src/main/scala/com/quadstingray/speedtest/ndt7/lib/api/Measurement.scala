@@ -5,6 +5,6 @@ case class Measurement(
                         Origin: Option[String],
                         Test: Option[String],
                         ConnectionInfo: Option[ConnectionInfo],
-                        TcpInfo: TcpInfo,
-                        BBRInfo: BBRInfo
+                        TcpInfo: Option[TcpInfo],
+                        BBRInfo: Option[BBRInfo]
                       )

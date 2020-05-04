@@ -89,7 +89,7 @@ case class TestClient(server: Server) extends HttpClient {
       ConnectionInfo(lastMeasurement.ConnectionInfo.get.Client, lastMeasurement.ConnectionInfo.get.Server)
     else
       ConnectionInfo("not_set", "not_set")
-    val result = MeasurementResult(Bandwidth(bandwidth), info)
+    val result = MeasurementResult(Bandwidth(bandwidth), info, count.toLong)
     result
   }
 
