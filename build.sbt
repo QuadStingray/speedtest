@@ -6,8 +6,6 @@ version := "0.1.0"
 
 scalaVersion := "2.13.2"
 
-scalacOptions ++= Seq("-Xmacro-settings:print-codecs")
-
 homepage := Some(url("https://quadstingray.github.io/speed4s/"))
 
 scmInfo := Some(ScmInfo(url("https://github.com/QuadStingray/speed4s"), "https://github.com/QuadStingray/speed4s.git"))

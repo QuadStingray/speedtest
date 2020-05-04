@@ -14,8 +14,6 @@ private [ndt7] case class UploadSocketListener(messageCallBack: (Measurement) =>
 
   implicit val codec: JsonValueCodec[Measurement] = JsonCodecMaker.make[Measurement]
 
-  def isConnected: Boolean = connected
-
   override def onOpen(ws: WebSocket, resp: Response) {
     connected = true
     logger.debug("Download WebSocket is opened")
@@ -34,16 +32,8 @@ private [ndt7] case class UploadSocketListener(messageCallBack: (Measurement) =>
     }
   }
 
-  override def onMessage(ws: WebSocket, bytes: ByteString) {
-    logger.debug("ByteString received")
-  }
-
   override def onClosing(ws: WebSocket, code: Int, reason: String) {
     ws.close(1000, null)
-  }
-
-  def resetStats() : Unit = {
-    lastMeasurement = null
   }
 
 }
