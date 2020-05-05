@@ -14,10 +14,10 @@ import scala.concurrent.duration._
 import scala.util.Random
 
 case class TestClient(server: Server) extends HttpClient {
-  private var testRunning: Boolean = false
-  private var firstRequestTime: Long = 0
-  private var lastRequestTime: Long = 0
-  private var lastMeasurementResult: MeasurementResult = _
+  private var testRunning: Boolean                               = false
+  private var firstRequestTime: Long                             = 0
+  private var lastRequestTime: Long                              = 0
+  private var lastMeasurementResult: MeasurementResult           = _
   protected var measurementCallBack: (MeasurementResult) => Unit = SpeedTest.defaultMeasurementCallback
 
   def runUpload(intermediateMeasurementCallBack: (MeasurementResult) => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
@@ -26,9 +26,9 @@ case class TestClient(server: Server) extends HttpClient {
       throw new Exception("Test is already running")
     }
 
-    val uri: URI = new URI("wss://" + server.fqdn + "/ndt/v7/upload")
+    val uri: URI             = new URI("wss://" + server.fqdn + "/ndt/v7/upload")
     val client: OkHttpClient = httpClient()
-    val request: Request = buildRequest(uri)
+    val request: Request     = buildRequest(uri)
 
     var lastSocketMessage: Measurement = Measurement(None, None, None)
 
@@ -45,7 +45,7 @@ case class TestClient(server: Server) extends HttpClient {
     lastRequestTime = System.nanoTime()
     while ((lastRequestTime - firstRequestTime).nanos.toSeconds < 8) {
       val byteCount = if (count > minMessageSize * 5) maxMessageSize else minMessageSize
-      val message = ByteString.of(Random.nextBytes(byteCount), 0, byteCount)
+      val message   = ByteString.of(Random.nextBytes(byteCount), 0, byteCount)
       count = count + byteCount
       socket.send(message)
       while (socket.queueSize() > 0) {}
@@ -68,9 +68,9 @@ case class TestClient(server: Server) extends HttpClient {
       throw new Exception("Test is already running")
     }
 
-    val uri: URI = new URI("wss://" + server.fqdn + "/ndt/v7/download")
+    val uri: URI             = new URI("wss://" + server.fqdn + "/ndt/v7/download")
     val client: OkHttpClient = httpClient()
-    val request: Request = buildRequest(uri)
+    val request: Request     = buildRequest(uri)
 
     client.newWebSocket(request, DownloadSocketListener(intermediateCallBack, finalDownloadCallBack, () => {
       firstRequestTime = System.nanoTime()
@@ -86,10 +86,11 @@ case class TestClient(server: Server) extends HttpClient {
 
   protected def generateMeasurementResult(testKind: String, count: Double, lastMeasurement: Measurement): MeasurementResult = {
     val bandwidth = count / ((lastRequestTime - firstRequestTime).doubleValue() / 1.second.toNanos)
-    val info = if (lastMeasurement != null && lastMeasurement.ConnectionInfo.isDefined)
-      ConnectionInfo(lastMeasurement.ConnectionInfo.get.Client, lastMeasurement.ConnectionInfo.get.Server)
-    else
-      ConnectionInfo("not_set", "not_set")
+    val info =
+      if (lastMeasurement != null && lastMeasurement.ConnectionInfo.isDefined)
+        ConnectionInfo(lastMeasurement.ConnectionInfo.get.Client, lastMeasurement.ConnectionInfo.get.Server)
+      else
+        ConnectionInfo("not_set", "not_set")
     val result = MeasurementResult(testKind, Bandwidth(bandwidth), info, count.toLong)
     result
   }

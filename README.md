@@ -13,8 +13,4 @@ https://github.com/m-lab/ndt-server/blob/master/spec/ndt7-protocol.md
 
 
 # Todos
-* Full Test
-  * with callbacks and extra case class
-* Full Test with given Server
-* Some small Exceptions
 * Docu 

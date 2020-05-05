@@ -12,21 +12,21 @@ class ClientUploadSpec extends Specification {
 
     "run Upload" >> {
       val client = TestClient(serverForTest)
-      val test = client.runUpload()
+      val test   = client.runUpload()
       test.bandwidth.megaBitPerSecond must beGreaterThan(5.0)
     }
 
     "run Upload with Callback" >> {
 
-      var count = 0
+      var count        = 0
       var bandwidthSum = 0.0
-      def callBack(result : MeasurementResult): Unit = {
+      def callBack(result: MeasurementResult): Unit = {
         count += 1
         bandwidthSum += result.bandwidth.bytePerSeconds
       }
 
       val client = TestClient(serverForTest)
-      val test = client.runDownload(callBack)
+      val test   = client.runDownload(callBack)
       test.bandwidth.megaBitPerSecond must beGreaterThan(5.0)
       count must beGreaterThan(5)
       bandwidthSum must beGreaterThan(test.bandwidth.bytePerSeconds)

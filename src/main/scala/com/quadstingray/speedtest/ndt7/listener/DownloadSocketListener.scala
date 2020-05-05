@@ -8,10 +8,14 @@ import com.typesafe.scalalogging.LazyLogging
 import okhttp3.{Response, WebSocket, WebSocketListener}
 import okio.ByteString
 
-private[ndt7] case class DownloadSocketListener(messageCallBack: (String, Double, Measurement) => Unit, closeCallBack: (Double, Measurement) => Unit, openCallBack: () => Unit) extends WebSocketListener with LazyLogging {
-  private var count = 0.0
+private[ndt7] case class DownloadSocketListener(messageCallBack: (String, Double, Measurement) => Unit,
+                                                closeCallBack: (Double, Measurement) => Unit,
+                                                openCallBack: () => Unit)
+    extends WebSocketListener
+    with LazyLogging {
+  private var count                        = 0.0
   private var lastMeasurement: Measurement = _
-  private var connected: Boolean = false
+  private var connected: Boolean           = false
 
   implicit val codec: JsonValueCodec[Measurement] = JsonCodecMaker.make[Measurement]
 

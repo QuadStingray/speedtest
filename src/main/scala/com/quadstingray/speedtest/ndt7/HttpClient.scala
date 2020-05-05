@@ -9,7 +9,6 @@ import com.typesafe.scalalogging.LazyLogging
 import javax.net.ssl.SSLSession
 import okhttp3.{OkHttpClient, Request}
 
-
 trait HttpClient extends LazyLogging {
   lazy val useragent: String = {
     val defaultUseragent = "%s.%s/%s %s".format(BuildInfo.organization, BuildInfo.name, BuildInfo.version, BuildInfo.gitLastCommitHash)
@@ -17,7 +16,8 @@ trait HttpClient extends LazyLogging {
       val useragent = ConfigFactory.defaultApplication().getString("com.quadstingray.speedtest.useragent")
       if (useragent.nonEmpty) {
         useragent
-      } else {
+      }
+      else {
         defaultUseragent
       }
     } catch {

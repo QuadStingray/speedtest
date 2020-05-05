@@ -16,7 +16,9 @@ class SpeedTestSpec extends Specification {
     }
 
     "run Test with given server" >> {
-      val speedTestResult = SpeedTest.runTest(Some(Server("fra05", "ndt-iupui-mlab1-fra05.measurement-lab.org", "Frankfurt", "DE", List("193.142.125.24", "2a01:3e0:ff20:401::24"))))
+      val speedTestResult = SpeedTest.runTest(
+        Some(Server("fra05", "ndt-iupui-mlab1-fra05.measurement-lab.org", "Frankfurt", "DE", List("193.142.125.24", "2a01:3e0:ff20:401::24")))
+      )
       speedTestResult.download.megaBitPerSecond must beGreaterThan(50.0)
       speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
       speedTestResult.testResults.size must beEqualTo(2)
@@ -31,16 +33,16 @@ class SpeedTestSpec extends Specification {
 
     "run Test with callbacks" >> {
 
-      var dlCount = 0
+      var dlCount        = 0
       var dlBandwidthSum = 0.0
-      def dlCallBack(result : MeasurementResult): Unit = {
+      def dlCallBack(result: MeasurementResult): Unit = {
         dlCount += 1
         dlBandwidthSum += result.bandwidth.bytePerSeconds
       }
 
-      var upCount = 0
+      var upCount        = 0
       var upBandwidthSum = 0.0
-      def upCallBack(result : MeasurementResult): Unit = {
+      def upCallBack(result: MeasurementResult): Unit = {
         upCount += 1
         upBandwidthSum += result.bandwidth.bytePerSeconds
       }

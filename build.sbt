@@ -14,7 +14,6 @@ developers := List(Developer("QuadStingray", "QuadStingray", "github@quadstingra
 
 licenses += ("Apache-2.0", url("https://github.com/QuadStingray/speed4s/blob/master/LICENSE"))
 
-
 libraryDependencies += "com.squareup.okhttp3" % "okhttp" % "4.6.0"
 
 libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"

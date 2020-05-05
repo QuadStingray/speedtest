@@ -6,13 +6,11 @@ import com.github.plokhotnyuk.jsoniter_scala.macros._
 case class MeasurementResult(testKind: String, bandwidth: Bandwidth, connectionInfo: ConnectionInfo, usedBytes: Long) {
   implicit private val codec: JsonValueCodec[MeasurementResult] = JsonCodecMaker.make[MeasurementResult]
 
-  def toJson: String = {
+  def toJson: String =
     writeToString(this)
-  }
 }
 
 object MeasurementResult {
-  val TestKindUpload: String = "UPLOAD"
+  val TestKindUpload: String   = "UPLOAD"
   val TestKindDownload: String = "DOWNLOAD"
 }
-
