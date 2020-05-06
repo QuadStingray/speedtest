@@ -2,8 +2,6 @@ name := "speedtest"
 
 organization := "com.quadstingray"
 
-version := "0.1.0"
-
 scalaVersion := crossScalaVersions.value.last
 
 crossScalaVersions := List("2.13.1", "2.13.2")
