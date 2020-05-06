@@ -4,7 +4,7 @@ import java.net.URI
 import java.util.concurrent.TimeUnit
 
 import com.quadstingray.speedtest.ndt7.lib.MeasurementResult._
-import com.quadstingray.speedtest.ndt7.lib.api.Measurement
+import com.quadstingray.speedtest.ndt7.lib.api.{BBRInfo, Measurement, TcpInfo}
 import com.quadstingray.speedtest.ndt7.lib.{Bandwidth, ConnectionInfo, MeasurementResult, Server}
 import com.quadstingray.speedtest.ndt7.listener.{DownloadSocketListener, UploadSocketListener}
 import okhttp3._
@@ -30,7 +30,7 @@ case class TestClient(server: Server) extends HttpClient {
     val client: OkHttpClient = httpClient()
     val request: Request     = buildRequest(uri)
 
-    var lastSocketMessage: Measurement = Measurement(None, None, None)
+    var lastSocketMessage: Measurement = Measurement(None, None, None, None, None)
 
     def updateMeasurement(ms: Measurement): Unit = lastSocketMessage = ms
 
@@ -91,7 +91,7 @@ case class TestClient(server: Server) extends HttpClient {
         ConnectionInfo(lastMeasurement.ConnectionInfo.get.Client, lastMeasurement.ConnectionInfo.get.Server)
       else
         ConnectionInfo("not_set", "not_set")
-    val result = MeasurementResult(testKind, Bandwidth(bandwidth), info, count.toLong)
+    val result = MeasurementResult(testKind, Bandwidth(bandwidth), info, count.toLong, lastMeasurement.BBRInfo.getOrElse(BBRInfo()).MinRTT)
     result
   }
 

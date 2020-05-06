@@ -8,6 +8,8 @@ http://locate.measurementlab.net/ndt?format=json&policy=all
 Specific Server
 https://locate.measurementlab.net/ndt_ssl?format=json
 
+https://siteinfo.mlab-oti.measurementlab.net/v1/sites/locations.json
+
 Docu
 https://github.com/m-lab/ndt-server/blob/master/spec/ndt7-protocol.md
 

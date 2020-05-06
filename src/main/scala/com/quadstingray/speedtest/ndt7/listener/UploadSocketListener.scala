@@ -25,7 +25,7 @@ private[ndt7] case class UploadSocketListener(messageCallBack: (Measurement) => 
       messageCallBack(measurement)
     } catch {
       case e: Exception => {
-        e
+        logger.debug(e.getMessage, e)
       }
     }
   }
