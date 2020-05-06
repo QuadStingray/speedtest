@@ -13,3 +13,11 @@ buildInfoKeys += BuildInfoKey.action("gitLastCommitHash") {
 buildInfoKeys += BuildInfoKey.action("organization") {
   organization.value
 }
+
+homepage := Some(url("https://quadstingray.github.io/speedtest/"))
+
+scmInfo := Some(ScmInfo(url("https://github.com/QuadStingray/speed4s"), "https://github.com/QuadStingray/speedtest.git"))
+
+developers := List(Developer("QuadStingray", "QuadStingray", "github@quadstingray.com", url("https://github.com/QuadStingray")))
+
+licenses += ("Apache-2.0", url("https://github.com/QuadStingray/speedtest/blob/master/LICENSE"))

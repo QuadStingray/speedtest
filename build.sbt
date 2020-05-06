@@ -1,18 +1,12 @@
-name := "speed4s"
+name := "speedtest"
 
 organization := "com.quadstingray"
 
 version := "0.1.0"
 
-scalaVersion := "2.13.2"
+scalaVersion := crossScalaVersions.value.last
 
-homepage := Some(url("https://quadstingray.github.io/speed4s/"))
-
-scmInfo := Some(ScmInfo(url("https://github.com/QuadStingray/speed4s"), "https://github.com/QuadStingray/speed4s.git"))
-
-developers := List(Developer("QuadStingray", "QuadStingray", "github@quadstingray.com", url("https://github.com/QuadStingray")))
-
-licenses += ("Apache-2.0", url("https://github.com/QuadStingray/speed4s/blob/master/LICENSE"))
+crossScalaVersions := List("2.13.1", "2.13.2")
 
 libraryDependencies += "com.squareup.okhttp3" % "okhttp" % "4.6.0"
 

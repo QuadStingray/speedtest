@@ -3,7 +3,7 @@ package com.quadstingray.speedtest.ndt7
 import java.net.URI
 import java.util.concurrent.TimeUnit
 
-import com.quadstingray.speed4s.BuildInfo
+import com.quadstingray.speedtest.BuildInfo
 import com.typesafe.config.{ConfigException, ConfigFactory}
 import com.typesafe.scalalogging.LazyLogging
 import javax.net.ssl.SSLSession
