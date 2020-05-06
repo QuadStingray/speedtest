@@ -1,0 +1,26 @@
+name: Scala Cross Check all OS
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        jdk: [1.8, 11, 13]
+        
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK ${{ matrix.jdk }}
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.jdk }}
+    - name: Run tests
+      run: sbt test
