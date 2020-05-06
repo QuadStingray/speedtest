@@ -32,7 +32,6 @@ class ClientDownloadSpec extends Specification with LazyLogging {
       test.bandwidth.megaBitPerSecond must beGreaterThan(50.0)
       count must beGreaterThan(5)
       bandwidthSum must beGreaterThan(test.bandwidth.bytePerSeconds)
-      bandwidthSum / count must beLessThanOrEqualTo(test.bandwidth.bytePerSeconds)
     }
 
   }
