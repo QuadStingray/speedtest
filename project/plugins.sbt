@@ -12,7 +12,7 @@ addSbtPlugin("com.lightbend.paradox" % "sbt-paradox" % "0.8.0")
 
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")
 
-//addSbtPlugin("com.codecommit" % "sbt-github-packages" % "<version>")
+addSbtPlugin("com.codecommit" % "sbt-github-packages" % "0.4.1")
 
 addSbtPlugin("com.geirsson" % "sbt-scalafmt" % "1.5.1")
 

@@ -6,6 +6,12 @@ scalaVersion := crossScalaVersions.value.last
 
 crossScalaVersions := List("2.13.1", "2.13.2")
 
+githubOwner := "QuadStingray"
+
+githubRepository := "speedtest"
+
+publishMavenStyle := true
+
 libraryDependencies += "com.squareup.okhttp3" % "okhttp" % "4.6.0"
 
 libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
