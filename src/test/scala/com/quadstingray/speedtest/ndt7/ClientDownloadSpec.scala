@@ -1,8 +1,13 @@
 package com.quadstingray.speedtest.ndt7
 
+import com.github.plokhotnyuk.jsoniter_scala.core.{JsonValueCodec, readFromString}
+import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
+import com.quadstingray.speedtest.ndt7.lib.api.Measurement
 import com.quadstingray.speedtest.ndt7.lib.{MeasurementResult, Server}
 import com.typesafe.scalalogging.LazyLogging
 import org.specs2.mutable.Specification
+
+import scala.io.Source
 
 class ClientDownloadSpec extends Specification with LazyLogging {
   sequential

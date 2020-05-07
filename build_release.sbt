@@ -1,5 +1,3 @@
-bintrayReleaseOnPublish in ThisBuild := true
-
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 releaseProcess := Seq[ReleaseStep](

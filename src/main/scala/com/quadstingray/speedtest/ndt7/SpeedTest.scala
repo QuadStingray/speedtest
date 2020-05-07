@@ -1,6 +1,6 @@
 package com.quadstingray.speedtest.ndt7
 
-import com.quadstingray.speedtest.ndt7.lib.{MeasurementResult, Server, SpeedTestResult}
+import com.quadstingray.speedtest.ndt7.lib.{ MeasurementResult, Server, SpeedTestResult }
 import com.typesafe.scalalogging.LazyLogging
 
 object SpeedTest extends LazyLogging {
@@ -22,7 +22,14 @@ object SpeedTest extends LazyLogging {
     val testClient     = TestClient(server)
     val downloadResult = testClient.runDownload(downloadMeasurementCallBack)
     val uploadResult   = testClient.runUpload(uploadMeasurementCallBack)
-    SpeedTestResult(downloadResult.bandwidth, uploadResult.bandwidth, uploadResult.connectionInfo, server, List(downloadResult, uploadResult))
+    SpeedTestResult(
+      downloadResult.bandwidth,
+      uploadResult.bandwidth,
+      downloadResult.latency.getOrElse(-1),
+      uploadResult.connectionInfo,
+      server,
+      List(downloadResult, uploadResult)
+    )
   }
 
   def defaultMeasurementCallback(measurement: MeasurementResult): Unit =

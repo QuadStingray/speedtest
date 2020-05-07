@@ -31,10 +31,10 @@ private[ndt7] case class DownloadSocketListener(messageCallBack: (String, Double
     try {
       val measurement: Measurement = readFromString[Measurement](text)
       lastMeasurement = measurement
-      messageCallBack(MeasurementResult.TestKindDownload, count, measurement)
+      messageCallBack(MeasurementResult.TestKindDownload, count, lastMeasurement)
     } catch {
       case e: Exception => {
-        e
+        logger.debug(e.getMessage, e)
       }
     }
   }
