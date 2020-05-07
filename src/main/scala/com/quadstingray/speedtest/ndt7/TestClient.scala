@@ -30,7 +30,7 @@ case class TestClient(server: Server) extends HttpClient {
     val client: OkHttpClient = httpClient()
     val request: Request     = buildRequest(uri)
 
-    var lastSocketMessage: Measurement = Measurement(None, None, None, None, None)
+    var lastSocketMessage: Measurement = Measurement()
 
     def updateMeasurement(ms: Measurement): Unit = lastSocketMessage = ms
 

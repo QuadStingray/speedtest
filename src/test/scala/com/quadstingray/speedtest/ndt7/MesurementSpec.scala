@@ -22,7 +22,6 @@ class MesurementSpec extends Specification with LazyLogging {
       val content = lines.mkString(" ")
       val mesurement = readFromString[Measurement](content)
       mesurement.BBRInfo must beSome
-      mesurement.TCPInfo must beSome
       mesurement.ConnectionInfo must beSome
     }
 
