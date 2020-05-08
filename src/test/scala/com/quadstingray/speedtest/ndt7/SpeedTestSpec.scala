@@ -13,7 +13,7 @@ class SpeedTestSpec extends Specification {
       speedTestResult.download.megaBitPerSecond must beGreaterThan(50.0)
       speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
       speedTestResult.testResults.size must beEqualTo(2)
-      speedTestResult.latency must beGreaterThanOrEqualTo(1000L)
+      speedTestResult.latency must beGreaterThanOrEqualTo(500L)
     }
 
     "run Test with given server" >> {
@@ -23,7 +23,7 @@ class SpeedTestSpec extends Specification {
       speedTestResult.download.megaBitPerSecond must beGreaterThan(50.0)
       speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
       speedTestResult.testResults.size must beEqualTo(2)
-      speedTestResult.latency must beGreaterThanOrEqualTo(1000L)
+      speedTestResult.latency must beGreaterThanOrEqualTo(500L)
     }
 
     "run Test with not existing server" >> {
@@ -31,7 +31,7 @@ class SpeedTestSpec extends Specification {
       speedTestResult.download.megaBitPerSecond must beGreaterThan(50.0)
       speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
       speedTestResult.testResults.size must beEqualTo(2)
-      speedTestResult.latency must beGreaterThanOrEqualTo(1000L)
+      speedTestResult.latency must beGreaterThanOrEqualTo(500L)
     }
 
     "run Test with callbacks" >> {
