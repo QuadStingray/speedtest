@@ -18,9 +18,9 @@ case class TestClient(server: Server) extends HttpClient {
   private var firstRequestTime: Long                             = 0
   private var lastRequestTime: Long                              = 0
   private var lastMeasurementResult: MeasurementResult           = _
-  protected var measurementCallBack: (MeasurementResult) => Unit = SpeedTest.defaultMeasurementCallback
+  protected var measurementCallBack: MeasurementResult => Unit = SpeedTest.defaultMeasurementCallback
 
-  def runUpload(intermediateMeasurementCallBack: (MeasurementResult) => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
+  def runUpload(intermediateMeasurementCallBack: MeasurementResult => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
     measurementCallBack = intermediateMeasurementCallBack
     if (testRunning) {
       throw new Exception("Test is already running")
@@ -62,7 +62,7 @@ case class TestClient(server: Server) extends HttpClient {
     lastMeasurementResult
   }
 
-  def runDownload(intermediateMeasurementCallBack: (MeasurementResult) => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
+  def runDownload(intermediateMeasurementCallBack: MeasurementResult => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
     measurementCallBack = intermediateMeasurementCallBack
     if (testRunning) {
       throw new Exception("Test is already running")

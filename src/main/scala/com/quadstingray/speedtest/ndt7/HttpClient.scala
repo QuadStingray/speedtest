@@ -21,7 +21,7 @@ trait HttpClient extends LazyLogging {
         defaultUseragent
       }
     } catch {
-      case e: ConfigException =>
+      case _: ConfigException =>
         defaultUseragent
     }
   }

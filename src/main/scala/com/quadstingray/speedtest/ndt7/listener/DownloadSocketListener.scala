@@ -33,9 +33,8 @@ private[ndt7] case class DownloadSocketListener(messageCallBack: (String, Double
       lastMeasurement = measurement
       messageCallBack(MeasurementResult.TestKindDownload, count, lastMeasurement)
     } catch {
-      case e: Exception => {
+      case e: Exception =>
         logger.debug(e.getMessage, e)
-      }
     }
   }
 

@@ -6,8 +6,8 @@ import com.typesafe.scalalogging.LazyLogging
 object SpeedTest extends LazyLogging {
 
   def runTest(specificServer: Option[Server] = None,
-              downloadMeasurementCallBack: (MeasurementResult) => Unit = defaultMeasurementCallback,
-              uploadMeasurementCallBack: (MeasurementResult) => Unit = defaultMeasurementCallback): SpeedTestResult = {
+              downloadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback,
+              uploadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback): SpeedTestResult = {
 
     val server = {
       val serverClient = ServerClient()

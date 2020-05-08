@@ -6,7 +6,7 @@ import com.quadstingray.speedtest.ndt7.lib.api.Measurement
 import com.typesafe.scalalogging.LazyLogging
 import okhttp3.{Response, WebSocket, WebSocketListener}
 
-private[ndt7] case class UploadSocketListener(messageCallBack: (Measurement) => Unit) extends WebSocketListener with LazyLogging {
+private[ndt7] case class UploadSocketListener(messageCallBack: Measurement => Unit) extends WebSocketListener with LazyLogging {
   private var lastMeasurement: Measurement = _
   private var connected: Boolean           = false
 
@@ -24,9 +24,8 @@ private[ndt7] case class UploadSocketListener(messageCallBack: (Measurement) => 
       lastMeasurement = measurement
       messageCallBack(measurement)
     } catch {
-      case e: Exception => {
+      case e: Exception =>
         logger.debug(e.getMessage, e)
-      }
     }
   }
 
