@@ -1,4 +1,4 @@
-name: Scala Cross Check all OS
+name: Build Version
 
 on:
   push:
