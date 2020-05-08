@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        jdk: [zulu@1.8.242, zulu@1.11.0-6, openjdk@1.13.0-2, graalvm@20.0.0]
+        jdk: [zulu@1.8.242, zulu@1.11.0-6, graalvm@20.0.0]
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.jdk }}
