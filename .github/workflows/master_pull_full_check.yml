@@ -7,21 +7,21 @@ on:
     branches: [ master ]
 
 jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
-        jdk: [zulu@1.8.242, zulu@1.11.0-6, zulu@1.13.0, graalvm@20.0.0]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK ${{ matrix.jdk }}
-      uses: olafurpg/setup-scala@v5
-      with:
-        java-version: ${{ matrix.jdk }}
-    - name: Run tests
-      run: sbt test
+#  test:
+#    runs-on: ${{ matrix.os }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        os: [ubuntu-latest, macOS-latest, windows-latest]
+#        jdk: [zulu@1.8.242, zulu@1.11.0-6, zulu@1.13.0, graalvm@20.0.0]
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Set up JDK ${{ matrix.jdk }}
+#      uses: olafurpg/setup-scala@v5
+#      with:
+#        java-version: ${{ matrix.jdk }}
+#    - name: Run tests
+#      run: sbt test
 
   release:
     needs: test
