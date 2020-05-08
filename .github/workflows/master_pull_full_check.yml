@@ -27,18 +27,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK zulu@1.13.0
+      - name: Set up JDK zulu@1.11.0
         uses: olafurpg/setup-scala@v5
         with:
           java-version: zulu@1.11.0-6
-      - name: Build Docu
-        run: |
-          if grep -q "SNAPSHOT" version.sbt
-          then
-              echo 'Nothing to do';
-          else
-            sbt paradox ghpagesPushSite
-          fi
+#      - name: Build Docu
+#        run: |
+#          if grep -q "SNAPSHOT" version.sbt
+#          then
+#              echo 'Nothing to do';
+#          else
+#            sbt paradox ghpagesPushSite
+#          fi
       - name: Release
         env:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
