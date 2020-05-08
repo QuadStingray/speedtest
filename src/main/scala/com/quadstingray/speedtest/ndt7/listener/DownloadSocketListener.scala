@@ -14,7 +14,7 @@ private[ndt7] case class DownloadSocketListener(messageCallBack: (String, Double
     extends WebSocketListener
     with LazyLogging {
   private var count                        = 0.0
-  private var lastMeasurement: Measurement = _
+  private var lastMeasurement: Measurement = Measurement()
   private var connected: Boolean           = false
 
   implicit val codec: JsonValueCodec[Measurement] = JsonCodecMaker.make[Measurement]

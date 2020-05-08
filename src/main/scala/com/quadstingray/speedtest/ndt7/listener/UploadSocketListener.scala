@@ -7,7 +7,7 @@ import com.typesafe.scalalogging.LazyLogging
 import okhttp3.{Response, WebSocket, WebSocketListener}
 
 private[ndt7] case class UploadSocketListener(messageCallBack: Measurement => Unit) extends WebSocketListener with LazyLogging {
-  private var lastMeasurement: Measurement = _
+  private var lastMeasurement: Measurement = Measurement()
   private var connected: Boolean           = false
 
   implicit val codec: JsonValueCodec[Measurement] = JsonCodecMaker.make[Measurement]

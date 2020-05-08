@@ -16,7 +16,7 @@ buildInfoKeys += BuildInfoKey.action("organization") {
 
 homepage := Some(url("https://quadstingray.github.io/speedtest/"))
 
-scmInfo := Some(ScmInfo(url("https://github.com/QuadStingray/speed4s"), "https://github.com/QuadStingray/speedtest.git"))
+scmInfo := Some(ScmInfo(url("https://github.com/QuadStingray/speedtest"), "https://github.com/QuadStingray/speedtest.git"))
 
 developers := List(Developer("QuadStingray", "QuadStingray", "github@quadstingray.com", url("https://github.com/QuadStingray")))
 
