@@ -4,7 +4,7 @@ import java.net.URI
 import java.util.concurrent.TimeUnit
 
 import com.quadstingray.speedtest.ndt7.lib.MeasurementResult._
-import com.quadstingray.speedtest.ndt7.lib.api.{ BBRInfo, Measurement }
+import com.quadstingray.speedtest.ndt7.lib.api.{ BbrInfo, Measurement }
 import com.quadstingray.speedtest.ndt7.lib.{ Bandwidth, ConnectionInfo, MeasurementResult, Server }
 import com.quadstingray.speedtest.ndt7.listener.{ DownloadSocketListener, UploadSocketListener }
 import okhttp3._
@@ -91,7 +91,7 @@ case class TestClient(server: Server) extends HttpClient {
         ConnectionInfo(lastMeasurement.ConnectionInfo.get.Client, lastMeasurement.ConnectionInfo.get.Server)
       else
         ConnectionInfo("not_set", "not_set")
-    val latency = lastMeasurement.BBRInfo.getOrElse(BBRInfo()).MinRTT
+    val latency = lastMeasurement.BBRInfo.getOrElse(BbrInfo()).MinRTT
     val result  = MeasurementResult(testKind, Bandwidth(bandwidth), info, count.toLong, latency)
     result
   }

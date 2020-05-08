@@ -1,15 +1,19 @@
 package com.quadstingray.speedtest.ndt7.lib.api
 
 private[ndt7] case class TcpInfo(
-    BytesSent: Option[Long] = None,
-    BytesRetrans: Option[Long] = None,
-    BusyTime: Option[Long] = None,
-    BytesAcked: Option[Long] = None,
-    BytesReceived: Option[Long] = None,
-    ElapsedTime: Option[Long] = None,
-    Retransmits: Option[Long] = None,
-    RTT: Option[Long] = None,
-    RTTVar: Option[Long] = None,
-    RWndLimited: Option[Long] = None,
-    SndBufLimited: Option[Long] = None
+    BytesSent: Option[Long],
+    BytesRetrans: Option[Long],
+    BusyTime: Option[Long],
+    BytesAcked: Option[Long],
+    BytesReceived: Option[Long],
+    ElapsedTime: Option[Long],
+    Retransmits: Option[Long],
+    RTT: Option[Long],
+    RTTVar: Option[Long],
+    RWndLimited: Option[Long],
+    SndBufLimited: Option[Long]
 )
+
+private[ndt7] object TcpInfo {
+  def apply(): TcpInfo = new TcpInfo(None, None, None, None, None, None, None, None, None, None, None)
+}
