@@ -20,7 +20,9 @@ paradoxProperties += ("app-version" -> {
   }
 })
 
-enablePlugins(ParadoxSitePlugin, ParadoxMaterialThemePlugin)
+enablePlugins(ParadoxSitePlugin, ParadoxMaterialThemePlugin, GhpagesPlugin)
+
+git.remoteRepo := "git@github.com:QuadStingray/speedtest.git"
 
 sourceDirectory in Paradox := sourceDirectory.value / "main" / "paradox"
 
