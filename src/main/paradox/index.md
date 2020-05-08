@@ -16,9 +16,4 @@ speedtest is deployed on bintray (jcenter).
 [Apache 2 License.](https://github.com/QuadStingray/speedtest/blob/master/LICENSE)
 
 ## Todos:
-- Tests
 - Documentation
-
-@@@ index
-* [Enabling the plugin](samples/index.md)
-@@@
