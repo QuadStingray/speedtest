@@ -22,7 +22,6 @@ jobs:
 #        java-version: ${{ matrix.jdk }}
 #    - name: Run tests
 #      run: sbt test
-
   release:
     #needs: test
     runs-on: ubuntu-latest
