@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
         jdk: [zulu@1.8.242, zulu@1.11.0-6, zulu@1.13.0, graalvm@20.0.0]
     steps:
       - uses: actions/checkout@v2
