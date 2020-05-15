@@ -1,7 +1,6 @@
 package com.quadstingray.speedtest.ndt7
 
 import java.net.URI
-import java.util.concurrent.TimeUnit
 
 import com.quadstingray.speedtest.ndt7.exception.ConcurrentTestException
 import com.quadstingray.speedtest.ndt7.lib.MeasurementResult._
@@ -25,6 +24,9 @@ case class TestClient(server: Server) extends HttpClient {
     measurementCallBack = intermediateMeasurementCallBack
     if (testRunning) {
       throw ConcurrentTestException()
+    }
+    else {
+      testRunning = true
     }
 
     val uri: URI             = new URI("wss://" + server.fqdn + "/ndt/v7/upload")
@@ -71,6 +73,9 @@ case class TestClient(server: Server) extends HttpClient {
     if (testRunning) {
       throw ConcurrentTestException()
     }
+    else {
+      testRunning = true
+    }
 
     val uri: URI             = new URI("wss://" + server.fqdn + "/ndt/v7/download")
     val client: OkHttpClient = httpClient()
@@ -82,9 +87,11 @@ case class TestClient(server: Server) extends HttpClient {
 
     val executorService = client.dispatcher().executorService()
     executorService.shutdown()
-    executorService.awaitTermination(30, TimeUnit.SECONDS)
-
+    while (testRunning && (lastRequestTime - firstRequestTime).nanos.toSeconds < 30) {
+      ""
+    }
     testRunning = false
+
     if (lastMeasurementResult == null)
       MeasurementResult(TestKindDownload)
     else
@@ -114,6 +121,7 @@ case class TestClient(server: Server) extends HttpClient {
     lastRequestTime = System.nanoTime()
     val result = generateMeasurementResult(TestKindDownload, count, lastMeasurement)
     lastMeasurementResult = result
+    testRunning = false
     result
   }
 
