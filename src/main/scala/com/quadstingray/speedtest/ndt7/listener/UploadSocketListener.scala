@@ -24,8 +24,8 @@ private[ndt7] case class UploadSocketListener(messageCallBack: Measurement => Un
       lastMeasurement = measurement
       messageCallBack(measurement)
     } catch {
-      case e: Exception =>
-        logger.debug(e.getMessage, e)
+      case e: JsonReaderException =>
+        logger.trace(e.getMessage, e)
     }
   }
 

@@ -3,6 +3,7 @@ package com.quadstingray.speedtest.ndt7
 import java.net.URI
 import java.util.concurrent.TimeUnit
 
+import com.quadstingray.speedtest.ndt7.exception.ConcurrentTestException
 import com.quadstingray.speedtest.ndt7.lib.MeasurementResult._
 import com.quadstingray.speedtest.ndt7.lib.api.{ BbrInfo, Measurement }
 import com.quadstingray.speedtest.ndt7.lib.{ Bandwidth, ConnectionInfo, MeasurementResult, Server }
@@ -14,16 +15,16 @@ import scala.concurrent.duration._
 import scala.util.Random
 
 case class TestClient(server: Server) extends HttpClient {
-  private var testRunning: Boolean                               = false
-  private var firstRequestTime: Long                             = 0
-  private var lastRequestTime: Long                              = 0
-  private var lastMeasurementResult: MeasurementResult           = _
+  private var testRunning: Boolean                             = false
+  private var firstRequestTime: Long                           = 0
+  private var lastRequestTime: Long                            = 0
+  private var lastMeasurementResult: MeasurementResult         = _
   protected var measurementCallBack: MeasurementResult => Unit = SpeedTest.defaultMeasurementCallback
 
   def runUpload(intermediateMeasurementCallBack: MeasurementResult => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
     measurementCallBack = intermediateMeasurementCallBack
     if (testRunning) {
-      throw new Exception("Test is already running")
+      throw ConcurrentTestException()
     }
 
     val uri: URI             = new URI("wss://" + server.fqdn + "/ndt/v7/upload")
@@ -56,16 +57,19 @@ case class TestClient(server: Server) extends HttpClient {
 
     val executorService = client.dispatcher().executorService()
     executorService.shutdown()
-    executorService.awaitTermination(Int.MaxValue, TimeUnit.MINUTES)
 
     testRunning = false
-    lastMeasurementResult
+
+    if (lastMeasurementResult == null)
+      MeasurementResult(TestKindDownload)
+    else
+      lastMeasurementResult
   }
 
   def runDownload(intermediateMeasurementCallBack: MeasurementResult => Unit = SpeedTest.defaultMeasurementCallback): MeasurementResult = {
     measurementCallBack = intermediateMeasurementCallBack
     if (testRunning) {
-      throw new Exception("Test is already running")
+      throw ConcurrentTestException()
     }
 
     val uri: URI             = new URI("wss://" + server.fqdn + "/ndt/v7/download")
@@ -78,10 +82,13 @@ case class TestClient(server: Server) extends HttpClient {
 
     val executorService = client.dispatcher().executorService()
     executorService.shutdown()
-    executorService.awaitTermination(Int.MaxValue, TimeUnit.MINUTES)
+    executorService.awaitTermination(30, TimeUnit.SECONDS)
 
     testRunning = false
-    lastMeasurementResult
+    if (lastMeasurementResult == null)
+      MeasurementResult(TestKindDownload)
+    else
+      lastMeasurementResult
   }
 
   protected def generateMeasurementResult(testKind: String, count: Double, lastMeasurement: Measurement): MeasurementResult = {

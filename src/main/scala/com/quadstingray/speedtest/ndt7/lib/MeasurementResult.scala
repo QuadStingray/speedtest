@@ -13,4 +13,6 @@ case class MeasurementResult(testKind: String, bandwidth: Bandwidth, connectionI
 object MeasurementResult {
   val TestKindUpload: String   = "UPLOAD"
   val TestKindDownload: String = "DOWNLOAD"
+
+  def apply(testKind: String): MeasurementResult = new MeasurementResult(testKind, Bandwidth(0), ConnectionInfo(), -1)
 }
