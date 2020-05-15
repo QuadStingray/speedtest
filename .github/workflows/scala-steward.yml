@@ -12,3 +12,5 @@ jobs:
     steps:
       - name: Launch Scala Steward
         uses: alejandrohdezma/scala-steward-action@v1
+        with:
+          github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
