@@ -10,7 +10,8 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
+      max-parallel: 2
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         jdk: [zulu@1.8.242, zulu@1.11.0-6, zulu@1.13.0, graalvm@20.0.0]
