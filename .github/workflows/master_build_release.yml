@@ -11,9 +11,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
         jdk: [zulu@1.8.242, zulu@1.11.0-6, zulu@1.13.0, graalvm@20.0.0]
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.jdk }}
