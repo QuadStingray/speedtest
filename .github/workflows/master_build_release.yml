@@ -10,14 +10,23 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
-      max-parallel: 1
+      fail-fast: true
+      max-parallel: 2
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: ubuntu-latest
         jdk: [zulu@1.8.242, zulu@1.11.0-6, zulu@1.13.0, graalvm@20.0.0]
-
     steps:
       - uses: actions/checkout@v2
+      - name: Cache SBT ivy cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2/cache
+          key: ${{ runner.os }}-sbt-ivy-cache-${{ hashFiles('**/build.sbt') }}
+      - name: Cache SBT
+        uses: actions/cache@v1
+        with:
+          path: ~/.sbt
+          key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
       - name: Set up JDK ${{ matrix.jdk }}
         uses: olafurpg/setup-scala@v5
         with:

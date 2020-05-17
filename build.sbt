@@ -4,7 +4,7 @@ organization := "com.quadstingray"
 
 scalaVersion := crossScalaVersions.value.last
 
-crossScalaVersions := List("2.13.1", "2.13.2")
+crossScalaVersions := List("2.13.2")
 
 bintrayReleaseOnPublish in ThisBuild := true
 

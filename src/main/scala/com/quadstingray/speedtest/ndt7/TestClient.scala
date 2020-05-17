@@ -86,10 +86,10 @@ case class TestClient(server: Server) extends HttpClient {
     }))
 
     val executorService = client.dispatcher().executorService()
-    executorService.shutdown()
     while (testRunning && (lastRequestTime - firstRequestTime).nanos.toSeconds < 30) {
       ""
     }
+    executorService.shutdown()
     testRunning = false
 
     if (lastMeasurementResult == null)
