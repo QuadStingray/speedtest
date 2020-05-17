@@ -46,7 +46,7 @@ case class TestClient(server: Server) extends HttpClient {
 
     firstRequestTime = System.nanoTime()
     lastRequestTime = System.nanoTime()
-    while ((lastRequestTime - firstRequestTime).nanos.toSeconds < 8) {
+    while ((System.nanoTime() - firstRequestTime).nanos.toSeconds < 8) {
       val byteCount = if (count > minMessageSize * 5) maxMessageSize else minMessageSize
       val message   = ByteString.of(Random.nextBytes(byteCount), 0, byteCount)
       count = count + byteCount
@@ -86,7 +86,9 @@ case class TestClient(server: Server) extends HttpClient {
     }))
 
     val executorService = client.dispatcher().executorService()
-    while (testRunning && (lastRequestTime - firstRequestTime).nanos.toSeconds < 30) {
+    firstRequestTime = System.nanoTime()
+    lastRequestTime = System.nanoTime()
+    while (testRunning && (System.nanoTime() - firstRequestTime).nanos.toSeconds < 30) {
       ""
     }
     executorService.shutdown()
