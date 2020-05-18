@@ -14,4 +14,5 @@ jobs:
         uses: alejandrohdezma/scala-steward-action@v1
         with:
           github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          sign-commits: false
           gpg-secret-key: ${{ secrets.GPG_SCALA_STEWARD }}
