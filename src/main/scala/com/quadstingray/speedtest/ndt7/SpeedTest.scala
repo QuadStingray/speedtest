@@ -12,7 +12,10 @@ object SpeedTest extends LazyLogging {
     val server = {
       val serverClient = ServerClient()
       if (specificServer.isDefined) {
-        serverClient.serverBySite(specificServer.get.site).getOrElse(serverClient.nextServer)
+        serverClient.serverBySite(specificServer.get.site).getOrElse({
+          logger.warn("Given server <%s> not found. Choose with default method.".format(specificServer.get))
+          serverClient.nextServer
+        })
       }
       else {
         serverClient.nextServer
