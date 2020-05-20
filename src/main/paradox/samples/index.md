@@ -1,8 +1,8 @@
 # Samples
 
-* @ref[Simple Example](full-test.md)
-* @ref[Simple Example](download-test.md)
-* @ref[Simple Example](upload-test.md)
+* @ref[Full Test](full-test.md)
+* @ref[Download Test](download-test.md)
+* @ref[Upload Test](upload-test.md)
 
 @@@ index
 
