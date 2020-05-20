@@ -11,7 +11,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
-#      max-parallel: 2
       matrix:
         os: [ubuntu-latest]
         jdk: [zulu@1.8.242, zulu@1.11.0-6, zulu@1.13.0, graalvm@20.0.0]
@@ -33,7 +32,7 @@ jobs:
           java-version: ${{ matrix.jdk }}
       - name: Run tests
         run: sbt test
-  release:
+  docu:
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -53,6 +52,15 @@ jobs:
           GIT_CONFIG_NAME: QuadStingray CI
           GIT_CONFIG_EMAIL: ci@quadstingray.com
           CLEAN: true
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK zulu@1.11.0
+        uses: olafurpg/setup-scala@v5
+        with:
+          java-version: zulu@1.11.0-6
       - name: Release
         env:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
