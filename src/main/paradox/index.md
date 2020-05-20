@@ -1,4 +1,5 @@
 # Speedtest
+As source to implementing this lib, I used mLabs Android Implementation [Android Lib](https://github.com/m-lab/ndt7-client-android).
 
 ## maven
 speedtest is deployed on bintray (jcenter).
@@ -17,3 +18,8 @@ speedtest is deployed on bintray (jcenter).
 
 ## Todos:
 - Documentation
+
+@@@ index
+* [Samples](samples/index.md)
+* [NDT7 Docu](ndt7-protocol.md)
+@@@
