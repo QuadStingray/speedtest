@@ -22,7 +22,7 @@ If you find this library helpfull, so you can see here how you can help:
 Feel free to report your issues to Github's issue tracker. Please use one of the templates for reporting issues. [report your issue](https://github.com/QuadStingray/speedtest/issues/new/choose)
 
 ## Quickstart
-google-cloud-logging is deployed on bintray (jcenter).
+speedtest is deployed on bintray (jcenter).
 [ ![Download from Bintray](https://api.bintray.com/packages/quadstingray/maven/speedtest/images/download.svg) ](https://bintray.com/quadstingray/maven/google-cloud-logging/_latestVersion)
 
 
