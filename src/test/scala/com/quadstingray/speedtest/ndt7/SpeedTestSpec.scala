@@ -9,7 +9,9 @@ class SpeedTestSpec extends Specification {
   "SpeedTest" >> {
 
     "run Test without any settings" >> {
+      //#auto-full-test-without
       val speedTestResult = SpeedTest.runTest()
+      //#auto-full-test-without
       speedTestResult.download.megaBitPerSecond must beGreaterThan(50.0)
       speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
       speedTestResult.testResults.size must beEqualTo(2)
@@ -17,9 +19,11 @@ class SpeedTestSpec extends Specification {
     }
 
     "run Test with given server" >> {
+      //#auto-full-test-server
       val speedTestResult = SpeedTest.runTest(
         Some(Server("fra05", "ndt-iupui-mlab1-fra05.measurement-lab.org", "Frankfurt", "DE", List("193.142.125.24", "2a01:3e0:ff20:401::24")))
       )
+      //#auto-full-test-server
       speedTestResult.download.megaBitPerSecond must beGreaterThan(50.0)
       speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
       speedTestResult.testResults.size must beEqualTo(2)
@@ -35,7 +39,7 @@ class SpeedTestSpec extends Specification {
     }
 
     "run Test with callbacks" >> {
-
+      //#auto-full-test-callbacks
       var dlCount        = 0
       var dlBandwidthSum = 0.0
       def dlCallBack(result: MeasurementResult): Unit = {
@@ -51,6 +55,8 @@ class SpeedTestSpec extends Specification {
       }
 
       val speedTestResult = SpeedTest.runTest(downloadMeasurementCallBack = dlCallBack, uploadMeasurementCallBack = upCallBack)
+      //#auto-full-test-callbacks
+
       speedTestResult.download.megaBitPerSecond must beGreaterThan(50.0)
       speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
       speedTestResult.testResults.size must beEqualTo(2)
