@@ -8,7 +8,7 @@
   
 ## Build Informations
 ![Build and Release](https://github.com/QuadStingray/speedtest/workflows/Build%20and%20Release/badge.svg)
-[ ![Download from Bintray](https://api.bintray.com/packages/quadstingray/maven/speedtest/images/download.svg) ](https://bintray.com/quadstingray/maven/google-cloud-logging/_latestVersion)
+[ ![Download from Bintray](https://api.bintray.com/packages/quadstingray/maven/speedtest/images/download.svg) ](https://bintray.com/quadstingray/maven/speedtest/_latestVersion)
 
 ## Introduction
 I didn't found any Speedtest Libary for Scala or Java. This library uses the [mLab](https://speed.measurementlab.net/#/) Speedtest network. By using this Library you agree the [Measurement Lab Privacy Policy](https://www.measurementlab.net/privacy/).
@@ -23,7 +23,7 @@ Feel free to report your issues to Github's issue tracker. Please use one of the
 
 ## Quickstart
 speedtest is deployed on bintray (jcenter).
-[ ![Download from Bintray](https://api.bintray.com/packages/quadstingray/maven/speedtest/images/download.svg) ](https://bintray.com/quadstingray/maven/google-cloud-logging/_latestVersion)
+[ ![Download from Bintray](https://api.bintray.com/packages/quadstingray/maven/speedtest/images/download.svg) ](https://bintray.com/quadstingray/maven/speedtest/_latestVersion)
 
 
 ## Docu and Samples
