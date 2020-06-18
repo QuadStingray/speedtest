@@ -12,7 +12,7 @@ class SpeedTestUploadSpec extends Specification {
       //#auto-upload-test-without
       val speedTestResult = SpeedTest.runUpload()
       //#auto-upload-test-without
-      speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(50.0)
+      speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(10.0)
       speedTestResult.latency.get must beGreaterThanOrEqualTo(500L)
     }
 
@@ -44,7 +44,7 @@ class SpeedTestUploadSpec extends Specification {
       val speedTestResult = SpeedTest.runUpload(uploadMeasurementCallBack = upCallBack)
       //#auto-upload-test-callbacks
 
-      speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(50.0)
+      speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(10.0)
       speedTestResult.latency.get must beGreaterThan(500L)
 
     }
