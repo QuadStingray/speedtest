@@ -14,7 +14,7 @@ class ClientDownloadSpec extends Specification with LazyLogging {
     "run Download" >> {
       val client = TestClient(serverForTest)
       val test   = client.runDownload()
-      test.bandwidth.megaBitPerSecond must beGreaterThan(50.0)
+      test.bandwidth.megaBitPerSecond must beGreaterThan(10.0)
     }
 
     "run Download with Callback" >> {
@@ -29,7 +29,7 @@ class ClientDownloadSpec extends Specification with LazyLogging {
 
       val client = TestClient(serverForTest)
       val test   = client.runDownload(callBack)
-      test.bandwidth.megaBitPerSecond must beGreaterThan(50.0)
+      test.bandwidth.megaBitPerSecond must beGreaterThan(10.0)
       count must beGreaterThan(5)
       bandwidthSum must beGreaterThan(test.bandwidth.bytePerSeconds)
     }

@@ -12,7 +12,7 @@ class SpeedTestDownloadSpec extends Specification {
       //#auto-download-test-without
       val speedTestResult = SpeedTest.runDownload()
       //#auto-download-test-without
-      speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(50.0)
+      speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(10.0)
       speedTestResult.latency.get must beGreaterThanOrEqualTo(500L)
     }
 
@@ -47,7 +47,7 @@ class SpeedTestDownloadSpec extends Specification {
       val speedTestResult = SpeedTest.runDownload(downloadMeasurementCallBack = dlCallBack)
       //#auto-download-test-callbacks
 
-      speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(50.0)
+      speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(10.0)
       speedTestResult.latency.get must beGreaterThan(500L)
 
     }
