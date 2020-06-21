@@ -14,7 +14,7 @@ libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
 
 libraryDependencies += "com.typesafe" % "config" % "1.4.0"
 
-val Jsoniter_Version = "2.4.1"
+val Jsoniter_Version = "2.4.2"
 
 libraryDependencies ++= Seq(
   "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-core"   % Jsoniter_Version,
