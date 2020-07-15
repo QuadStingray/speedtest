@@ -12,7 +12,7 @@ import okhttp3.{OkHttpClient, Request}
 
 trait HttpClient extends LazyLogging {
   lazy val useragent: String = {
-    val defaultUseragent = "%s.%s/%s %s (%s)".format(BuildInfo.organization, BuildInfo.name, BuildInfo.version, BuildInfo.gitLastCommitHash, new Date().toInstant)
+    val defaultUseragent = "%s.%s/%s %s".format(BuildInfo.organization, BuildInfo.name, BuildInfo.version, BuildInfo.gitLastCommitHash, new Date().getTime)
     try {
       val useragent = System.getProperty("com.quadstingray.speedtest.useragent")
       if (useragent.nonEmpty) {
