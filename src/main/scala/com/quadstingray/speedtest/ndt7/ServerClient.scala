@@ -25,14 +25,14 @@ case class ServerClient() extends HttpClient {
 
   def allServerDetails: List[ServerDetails] = {
     val uri            = new URI("https://siteinfo.mlab-oti.measurementlab.net/v1/sites/locations.json")
-    val responseString = httpClient().newCall(buildRequest(uri)).execute().body().string()
-    readFromString[List[ServerDetails]](responseString)
+    val response = httpClient().newCall(buildRequest(uri)).execute()
+    readFromString[List[ServerDetails]](response.body().string())
   }
 
   def nextServer: Server = {
     val uri            = new URI("https://locate.measurementlab.net/ndt_ssl?format=json")
-    val responseString = httpClient().newCall(buildRequest(uri)).execute().body().string()
-    readFromString[Server](responseString)
+    val response = httpClient().newCall(buildRequest(uri)).execute()
+    readFromString[Server](response.body().string())
   }
 
 }
