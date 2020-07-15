@@ -15,7 +15,7 @@ trait HttpClient extends LazyLogging {
     val defaultUseragent = "%s.%s/%s %s".format(BuildInfo.organization, BuildInfo.name, BuildInfo.version, BuildInfo.gitLastCommitHash, new Date().getTime)
     try {
       val useragent = System.getProperty("com.quadstingray.speedtest.useragent")
-      if (useragent.nonEmpty) {
+      if (useragent != null && useragent.nonEmpty) {
         useragent
       } else {
         val useragent = ConfigFactory.defaultApplication().getString("com.quadstingray.speedtest.useragent")
