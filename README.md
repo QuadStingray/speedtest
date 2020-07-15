@@ -25,7 +25,6 @@ Feel free to report your issues to Github's issue tracker. Please use one of the
 speedtest is deployed on bintray (jcenter).
 [ ![Download from Bintray](https://api.bintray.com/packages/quadstingray/maven/speedtest/images/download.svg) ](https://bintray.com/quadstingray/maven/speedtest/_latestVersion)
 
-
 ## Docu and Samples
 * https://quadstingray.github.io/speedtest/
 * https://quadstingray.github.io/speedtest/samples/index.html
