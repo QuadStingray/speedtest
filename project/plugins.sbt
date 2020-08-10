@@ -14,7 +14,7 @@ addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")
 
 addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.6")
 
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.0")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
 
 addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.19")
 
