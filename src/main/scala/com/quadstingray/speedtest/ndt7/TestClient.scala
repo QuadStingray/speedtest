@@ -39,18 +39,20 @@ case class TestClient(server: Server) extends HttpClient {
 
     val socket = client.newWebSocket(request, UploadSocketListener(updateMeasurement))
 
-    var count: Long = 0
+    var count: Long         = 0
+    var sendByteCount: Long = 0
 
-    val minMessageSize = 1 << 13
-    val maxMessageSize = 1 << 18
+    val minMessageSize = 8
+    val maxMessageSize = 8192
 
     firstRequestTime = System.nanoTime()
     lastRequestTime = System.nanoTime()
     while ((System.nanoTime() - firstRequestTime).nanos.toSeconds < 8) {
-      val byteCount = if (count > minMessageSize * 5) maxMessageSize else minMessageSize
-      val message   = ByteString.of(Random.nextBytes(byteCount), 0, byteCount)
+      count = count + 1
+      val byteCount: Int = if (sendByteCount > maxMessageSize) maxMessageSize else (minMessageSize + (count * 8)).toInt
+      val message        = ByteString.of(Random.nextBytes(byteCount), 0, byteCount)
       socket.send(message)
-      var break = false
+      var break         = false
       var lastQueueSize = 0L
       var sameQueueSize = 0
       while (socket.queueSize() > 0 && !break) {
@@ -60,14 +62,19 @@ case class TestClient(server: Server) extends HttpClient {
             Thread.sleep(8)
             break = true
           }
-        } else {
+        }
+        else {
           sameQueueSize = 0
         }
         lastQueueSize = socket.queueSize()
       }
-      count = count + (byteCount + socket.queueSize())
+      if (socket.queueSize() > 0) {
+        sendByteCount = sendByteCount + (byteCount + socket.queueSize())
+      } else {
+        sendByteCount = sendByteCount + byteCount
+      }
       lastRequestTime = System.nanoTime()
-      lastMeasurementResult = intermediateCallBack(TestKindUpload, count, lastSocketMessage)
+      lastMeasurementResult = intermediateCallBack(TestKindUpload, sendByteCount, lastSocketMessage)
     }
     socket.close(1000, null)
 
