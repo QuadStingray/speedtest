@@ -13,7 +13,7 @@ class SpeedTestDownloadSpec extends Specification {
       val speedTestResult = SpeedTest.runDownload()
       //#auto-download-test-without
       speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(10.0)
-      speedTestResult.latency.get must beGreaterThanOrEqualTo(500L)
+      speedTestResult.latency.get must beGreaterThanOrEqualTo(100L)
     }
 
     "run Test with given server" >> {
@@ -23,13 +23,13 @@ class SpeedTestDownloadSpec extends Specification {
       )
       //#auto-download-test-server
       speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(5.0)
-      speedTestResult.latency.get must beGreaterThanOrEqualTo(500L)
+      speedTestResult.latency.get must beGreaterThanOrEqualTo(100L)
     }
 
     "run Test with not existing server" >> {
       val speedTestResult = SpeedTest.runDownload(Some(Server("ber01", "ndt-iupui-mlab1-ber01.measurement-lab.org", "Berlin", "DE", List())))
       speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(5.0)
-      speedTestResult.latency.get must beGreaterThanOrEqualTo(500L)
+      speedTestResult.latency.get must beGreaterThanOrEqualTo(100L)
     }
 
     "run Test with callbacks" >> {
