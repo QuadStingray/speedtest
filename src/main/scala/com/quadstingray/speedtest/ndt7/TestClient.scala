@@ -51,7 +51,22 @@ case class TestClient(server: Server) extends HttpClient {
       val message   = ByteString.of(Random.nextBytes(byteCount), 0, byteCount)
       count = count + byteCount
       socket.send(message)
-      while (socket.queueSize() > 0) {}
+      var break = false
+      var lastQueueSize = 0L
+      var sameQueueSize = 0
+      while (socket.queueSize() > 0 && !break) {
+        if ((System.nanoTime() - firstRequestTime).nanos.toSeconds > 8 && socket.queueSize() == lastQueueSize) {
+          sameQueueSize = sameQueueSize + 1
+          if (sameQueueSize > 64) {
+            Thread.sleep(10)
+            break = true
+            count = count - socket.queueSize()
+          }
+        } else {
+          sameQueueSize = 0
+        }
+        lastQueueSize = socket.queueSize()
+      }
       lastRequestTime = System.nanoTime()
       lastMeasurementResult = intermediateCallBack(TestKindUpload, count, lastSocketMessage)
     }
@@ -63,7 +78,7 @@ case class TestClient(server: Server) extends HttpClient {
     testRunning = false
 
     if (lastMeasurementResult == null)
-      MeasurementResult(TestKindDownload)
+      MeasurementResult(TestKindUpload)
     else
       lastMeasurementResult
   }
