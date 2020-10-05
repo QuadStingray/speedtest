@@ -48,7 +48,7 @@ class SpeedTestDownloadSpec extends Specification {
       //#auto-download-test-callbacks
 
       speedTestResult.bandwidth.megaBitPerSecond must beGreaterThan(10.0)
-      speedTestResult.latency.get must beGreaterThan(500L)
+      speedTestResult.latency.get must beGreaterThan(100L)
 
     }
 
