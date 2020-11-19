@@ -23,7 +23,7 @@ jobs:
           path: ~/.sbt
           key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
       - name: Set up JDK ${{ matrix.jdk }}
-        uses: olafurpg/setup-scala@v5
+        uses: olafurpg/setup-scala@v10
         with:
           java-version: ${{ matrix.jdk }}
       - name: Run tests
