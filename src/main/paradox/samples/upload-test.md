@@ -14,10 +14,8 @@ The Framework choose the automatic method to find best server.
 @@snip [build.sbt](../../../test/scala/com/quadstingray/speedtest/ndt7/SpeedTestUploadSpec.scala) { #auto-upload-test-without }
 
 ## Run Upload Test with specific Server
-When you setup you test with an not existing Server. The Framework choose the automatic method to find best server.
-
-@@snip [build.sbt](../../../test/scala/com/quadstingray/speedtest/ndt7/SpeedTestUploadSpec.scala) { #auto-upload-test-server }
-
+> Removed from API because Token needed
+>
 ## Run Upload Test with CallBacks
 With CallBacks you can update your UI do somethings at running the test.
 
