@@ -29,7 +29,7 @@ private[ndt7] case class UploadSocketListener(messageCallBack: Measurement => Un
     }
   }
 
-  override def onClosing(ws: WebSocket, code: Int, reason: String) {
+  override def onClosed(ws: WebSocket, code: Int, reason: String) {
     ws.close(1000, null)
   }
 

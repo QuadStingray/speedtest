@@ -5,24 +5,11 @@ import com.typesafe.scalalogging.LazyLogging
 
 object SpeedTest extends LazyLogging {
 
-  def runTest(specificServer: Option[Server] = None,
-              downloadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback,
+  def runTest(downloadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback,
               uploadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback): SpeedTestResult = {
 
-    val server = {
-      val serverClient = ServerClient()
-      if (specificServer.isDefined) {
-        serverClient
-          .serverBySite(specificServer.get.site)
-          .getOrElse({
-            logger.warn("Given server <%s> not found. Choose with default method.".format(specificServer.get))
-            serverClient.nextServer
-          })
-      }
-      else {
-        serverClient.nextServer
-      }
-    }
+    val serverClient = ServerClient()
+    val server = serverClient.nextServer
 
     val testClient     = TestClient(server)
     val downloadResult = testClient.runDownload(downloadMeasurementCallBack)
@@ -37,46 +24,20 @@ object SpeedTest extends LazyLogging {
     )
   }
 
-  def runDownload(specificServer: Option[Server] = None,
-                  downloadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback): MeasurementResult = {
+  def runDownload(downloadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback): MeasurementResult = {
 
-    val server = {
-      val serverClient = ServerClient()
-      if (specificServer.isDefined) {
-        serverClient
-          .serverBySite(specificServer.get.site)
-          .getOrElse({
-            logger.warn("Given server <%s> not found. Choose with default method.".format(specificServer.get))
-            serverClient.nextServer
-          })
-      }
-      else {
-        serverClient.nextServer
-      }
-    }
+    val serverClient = ServerClient()
+    val server = serverClient.nextServer
 
     val testClient     = TestClient(server)
     val downloadResult = testClient.runDownload(downloadMeasurementCallBack)
     downloadResult
   }
 
-  def runUpload(specificServer: Option[Server] = None,
-              uploadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback): MeasurementResult = {
+  def runUpload(uploadMeasurementCallBack: MeasurementResult => Unit = defaultMeasurementCallback): MeasurementResult = {
+    val serverClient = ServerClient()
 
-    val server = {
-      val serverClient = ServerClient()
-      if (specificServer.isDefined) {
-        serverClient
-          .serverBySite(specificServer.get.site)
-          .getOrElse({
-            logger.warn("Given server <%s> not found. Choose with default method.".format(specificServer.get))
-            serverClient.nextServer
-          })
-      }
-      else {
-        serverClient.nextServer
-      }
-    }
+    val server = serverClient.nextServer
 
     val testClient     = TestClient(server)
     val uploadResult   = testClient.runUpload(uploadMeasurementCallBack)

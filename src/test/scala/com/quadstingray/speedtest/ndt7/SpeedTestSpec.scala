@@ -18,26 +18,6 @@ class SpeedTestSpec extends Specification {
       speedTestResult.latency must beGreaterThanOrEqualTo(100L)
     }
 
-    "run Test with given server" >> {
-      //#auto-full-test-server
-      val speedTestResult = SpeedTest.runTest(
-        Some(Server("fra05", "ndt-iupui-mlab1-fra05.measurement-lab.org", "Frankfurt", "DE", List("193.142.125.24", "2a01:3e0:ff20:401::24")))
-      )
-      //#auto-full-test-server
-      speedTestResult.download.megaBitPerSecond must beGreaterThan(10.0)
-      speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
-      speedTestResult.testResults.size must beEqualTo(2)
-      speedTestResult.latency must beGreaterThanOrEqualTo(100L)
-    }
-
-    "run Test with not existing server" >> {
-      val speedTestResult = SpeedTest.runTest(Some(Server("ber01", "ndt-iupui-mlab1-ber01.measurement-lab.org", "Berlin", "DE", List())))
-      speedTestResult.download.megaBitPerSecond must beGreaterThan(10.0)
-      speedTestResult.upload.megaBitPerSecond must beGreaterThan(5.0)
-      speedTestResult.testResults.size must beEqualTo(2)
-      speedTestResult.latency must beGreaterThanOrEqualTo(100L)
-    }
-
     "run Test with callbacks" >> {
       //#auto-full-test-callbacks
       var dlCount        = 0

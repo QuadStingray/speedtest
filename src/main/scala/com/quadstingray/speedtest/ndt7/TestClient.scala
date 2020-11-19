@@ -4,9 +4,9 @@ import java.net.URI
 
 import com.quadstingray.speedtest.ndt7.exception.ConcurrentTestException
 import com.quadstingray.speedtest.ndt7.lib.MeasurementResult._
-import com.quadstingray.speedtest.ndt7.lib.api.{ BbrInfo, Measurement }
-import com.quadstingray.speedtest.ndt7.lib.{ Bandwidth, ConnectionInfo, MeasurementResult, Server }
-import com.quadstingray.speedtest.ndt7.listener.{ DownloadSocketListener, UploadSocketListener }
+import com.quadstingray.speedtest.ndt7.lib.api.{BbrInfo, Measurement}
+import com.quadstingray.speedtest.ndt7.lib.{Bandwidth, ConnectionInfo, MeasurementResult, Server}
+import com.quadstingray.speedtest.ndt7.listener.{DownloadSocketListener, UploadSocketListener}
 import okhttp3._
 import okio.ByteString
 
@@ -29,7 +29,7 @@ case class TestClient(server: Server) extends HttpClient {
       testRunning = true
     }
 
-    val uri: URI             = new URI("wss://" + server.fqdn + "/ndt/v7/upload")
+    val uri: URI             = new URI(server.urls("wss:///ndt/v7/upload"))
     val client: OkHttpClient = httpClient()
     val request: Request     = buildRequest(uri)
 
@@ -47,35 +47,21 @@ case class TestClient(server: Server) extends HttpClient {
 
     firstRequestTime = System.nanoTime()
     lastRequestTime = System.nanoTime()
+
     while ((System.nanoTime() - firstRequestTime).nanos.toSeconds < 8) {
       count = count + 1
-      val byteCount: Int = if (sendByteCount > maxMessageSize) maxMessageSize else (minMessageSize + (count * 8)).toInt
-      val message        = ByteString.of(Random.nextBytes(byteCount), 0, byteCount)
-      socket.send(message)
-      var break         = false
-      var lastQueueSize = 0L
-      var sameQueueSize = 0
-      while (socket.queueSize() > 0 && !break) {
-        if ((System.nanoTime() - firstRequestTime).nanos.toSeconds > 8 && socket.queueSize() == lastQueueSize) {
-          sameQueueSize = sameQueueSize + 1
-          if (sameQueueSize > 128) {
-            Thread.sleep(8)
-            break = true
-          }
-        }
-        else {
-          sameQueueSize = 0
-        }
-        lastQueueSize = socket.queueSize()
+      val byteCount: Int = 1 << 13
+      val message        = Random.nextBytes(byteCount)
+      //Ws max queuesize is 16mb
+      if (socket.queueSize() < message.length) {
+        sendByteCount += message.length.toLong
+        socket.send(ByteString.of(message, 0, message.length))
       }
-      if (socket.queueSize() > 0) {
-        sendByteCount = sendByteCount + (byteCount + socket.queueSize())
-      } else {
-        sendByteCount = sendByteCount + byteCount
-      }
+
       lastRequestTime = System.nanoTime()
       lastMeasurementResult = intermediateCallBack(TestKindUpload, sendByteCount, lastSocketMessage)
     }
+
     socket.close(1000, null)
 
     val executorService = client.dispatcher().executorService()
@@ -98,20 +84,24 @@ case class TestClient(server: Server) extends HttpClient {
       testRunning = true
     }
 
-    val uri: URI             = new URI("wss://" + server.fqdn + "/ndt/v7/download")
+    val uri: URI             = new URI(server.urls("wss:///ndt/v7/download"))
     val client: OkHttpClient = httpClient()
     val request: Request     = buildRequest(uri)
 
-    client.newWebSocket(request, DownloadSocketListener(intermediateCallBack, finalDownloadCallBack, () => {
+    val ws = client.newWebSocket(request, DownloadSocketListener(intermediateCallBack, finalDownloadCallBack, () => {
       firstRequestTime = System.nanoTime()
     }))
 
     val executorService = client.dispatcher().executorService()
+    ws.send("test")
+
     firstRequestTime = System.nanoTime()
     lastRequestTime = System.nanoTime()
+
     while (testRunning && (System.nanoTime() - firstRequestTime).nanos.toSeconds < 30) {
       ""
     }
+
     executorService.shutdown()
     testRunning = false
 
@@ -136,6 +126,7 @@ case class TestClient(server: Server) extends HttpClient {
   protected def intermediateCallBack(testKind: String, count: Double, lastMeasurement: Measurement): MeasurementResult = {
     lastRequestTime = System.nanoTime()
     val result = generateMeasurementResult(testKind, count, lastMeasurement)
+    lastMeasurementResult = result
     measurementCallBack(result)
     result
   }

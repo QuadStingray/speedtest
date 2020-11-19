@@ -13,6 +13,7 @@ private[ndt7] case class DownloadSocketListener(messageCallBack: (String, Double
                                                 openCallBack: () => Unit)
     extends WebSocketListener
     with LazyLogging {
+
   private var count                        = 0.0
   private var lastMeasurement: Measurement = Measurement()
   private var connected: Boolean           = false
@@ -44,7 +45,7 @@ private[ndt7] case class DownloadSocketListener(messageCallBack: (String, Double
     messageCallBack(MeasurementResult.TestKindDownload, count, lastMeasurement)
   }
 
-  override def onClosing(ws: WebSocket, code: Int, reason: String) {
+  override def onClosed(ws: WebSocket, code: Int, reason: String) {
     closeCallBack(count, lastMeasurement)
     connected = false
     ws.close(1000, null)
