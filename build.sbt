@@ -8,7 +8,7 @@ crossScalaVersions := List("2.13.4")
 
 bintrayReleaseOnPublish in ThisBuild := true
 
-libraryDependencies += "com.squareup.okhttp3" % "okhttp" % "4.9.0"
+libraryDependencies += "com.squareup.okhttp3" % "okhttp" % "4.9.1"
 
 libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
 
