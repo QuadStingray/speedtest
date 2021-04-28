@@ -164,7 +164,7 @@ QuadStingray/speedtest
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.8.1
+<i class="md-icon" title="Version">label_outline</i> 0.8.2
 </label>
 </li>
 </ul>
@@ -194,25 +194,25 @@ QuadStingray/speedtest
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#download-test" name="download-test" class="anchor"><span class="anchor-link"></span></a>Download Test</h1>
-<h2><a href="#adding-to-build-sbt" name="adding-to-build-sbt" class="anchor"><span class="anchor-link"></span></a>Adding To build.sbt</h2><dl class="dependency"><dt>sbt</dt><dd><pre class="prettyprint"><code class="language-scala">libraryDependencies += "com.quadstingray" %% "speedtest" % "0.8.1"</code></pre></dd><dt>Maven</dt><dd><pre class="prettyprint"><code class="language-xml">&lt;dependencies&gt
+<h2><a href="#adding-to-build-sbt" name="adding-to-build-sbt" class="anchor"><span class="anchor-link"></span></a>Adding To build.sbt</h2><dl class="dependency"><dt>sbt</dt><dd><pre class="prettyprint"><code class="language-scala">libraryDependencies += "com.quadstingray" %% "speedtest" % "0.8.2"</code></pre></dd><dt>Maven</dt><dd><pre class="prettyprint"><code class="language-xml">&lt;dependencies&gt
   &lt;dependency&gt;
     &lt;groupId&gt;com.quadstingray&lt;/groupId&gt;
     &lt;artifactId&gt;speedtest_2.13&lt;/artifactId&gt;
-    &lt;version&gt;0.8.1&lt;/version&gt;
+    &lt;version&gt;0.8.2&lt;/version&gt;
   &lt;/dependency&gt
 &lt;/dependencies&gt;</code></pre></dd><dt>Gradle</dt><dd><pre class="prettyprint"><code class="language-gradle">dependencies {
-  implementation "com.quadstingray:speedtest_2.13:0.8.1"
+  implementation "com.quadstingray:speedtest_2.13:0.8.2"
 }</code></pre></dd></dl>
 <h2><a href="#run-download-test" name="run-download-test" class="anchor"><span class="anchor-link"></span></a>Run Download Test</h2>
 <p>The Framework choose the automatic method to find best server.</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/QuadStingray/speedtest/tree/v0.8.1/src/test/scala/com/quadstingray/speedtest/ndt7/SpeedTestDownloadSpec.scala#L13" target="_blank" title="Go to snippet source"></a><code class="language-scala">val speedTestResult = SpeedTest.runDownload()</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/QuadStingray/speedtest/tree/v0.8.2/src/test/scala/com/quadstingray/speedtest/ndt7/SpeedTestDownloadSpec.scala#L13" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val speedTestResult = SpeedTest.runDownload()</code></pre>
 <h2><a href="#run-download-test-with-specific-server" name="run-download-test-with-specific-server" class="anchor"><span class="anchor-link"></span></a>Run Download Test with specific Server</h2>
 <blockquote>
   <p>Removed from API because Token needed</p>
 </blockquote>
 <h2><a href="#run-download-test-with-callbacks" name="run-download-test-with-callbacks" class="anchor"><span class="anchor-link"></span></a>Run Download Test with CallBacks</h2>
 <p>With CallBacks you can update your UI do somethings at running the test.</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/QuadStingray/speedtest/tree/v0.8.1/src/test/scala/com/quadstingray/speedtest/ndt7/SpeedTestDownloadSpec.scala#L21-L28" target="_blank" title="Go to snippet source"></a><code class="language-scala">var dlCount        = 0
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/QuadStingray/speedtest/tree/v0.8.2/src/test/scala/com/quadstingray/speedtest/ndt7/SpeedTestDownloadSpec.scala#L21-L28" target="_blank" title="Go to snippet source">source</a><code class="language-scala">var dlCount        = 0
 var dlBandwidthSum = 0.0
 def dlCallBack(result: MeasurementResult): Unit = {
   dlCount += 1
@@ -222,13 +222,13 @@ def dlCallBack(result: MeasurementResult): Unit = {
 val speedTestResult = SpeedTest.runDownload(downloadMeasurementCallBack = dlCallBack)</code></pre>
 </div>
 <div>
-<a href="https://github.com/QuadStingray/speedtest/tree/v0.8.1/src/main/paradox/samples/download-test.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/QuadStingray/speedtest/tree/v0.8.2/src/main/paradox/samples/download-test.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.8.1
+0.8.2
 </span>
 </div>
 </article>
